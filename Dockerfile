@@ -8,8 +8,8 @@ RUN yum install -y wget epel-release
 RUN yum install -y http://packages.erlang-solutions.com/erlang-solutions-${ERLANG_SOLUTIONS_VERSION}.noarch.rpm && yum clean all
 RUN yum install -y erlang && yum clean all
 
-ENV RABBITMQ_VERSION 3.6.6
-RUN yum install -y http://www.rabbitmq.com/releases/rabbitmq-server/v${RABBITMQ_VERSION}/rabbitmq-server-${RABBITMQ_VERSION}-1.noarch.rpm && yum clean all
+ENV RABBITMQ_VERSION 3.6.10
+RUN yum install -y http://www.rabbitmq.com/releases/rabbitmq-server/v${RABBITMQ_VERSION}/rabbitmq-server-${RABBITMQ_VERSION}-1.el7.noarch.rpm && yum clean all
 RUN echo "[{rabbit,[{loopback_users,[]}]}]." > /etc/rabbitmq/rabbitmq.config
 RUN rm -rf /var/lib/rabbitmq/mnesia
 
