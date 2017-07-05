@@ -27,10 +27,15 @@ ENV RABBITMQ_LOGS=- RABBITMQ_SASL_LOGS=-
 # set home so that any `--user` knows where to put the erlang cookie
 ENV HOME /var/lib/rabbitmq
 
-RUN mkdir -p /var/lib/rabbitmq/plugins /etc/rabbitmq \
+RUN mkdir -p /var/lib/rabbitmq /etc/rabbitmq \
 	&& chown -R rabbitmq:rabbitmq /var/lib/rabbitmq /etc/rabbitmq \
 	&& chmod 777 /var/lib/rabbitmq /etc/rabbitmq
 
+ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
+ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
+ADD plugins/enabled_plugins /etc/rabbitmq/
+
+	
 RUN chown -R rabbitmq:rabbitmq /opt/app-root
 # && \
 	# chown -R rabbitmq:rabbitmq /var/log/rabbitmq/ && \
@@ -38,8 +43,6 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 	# chown -R rabbitmq:rabbitmq /etc/rabbitmq/ && \
 	# chown -R rabbitmq:rabbitmq /usr/sbin/rabbitmq*
 	
-ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
-ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
 
 VOLUME /var/lib/rabbitmq/
 
