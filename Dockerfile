@@ -27,6 +27,8 @@ ENV RABBITMQ_LOGS=- RABBITMQ_SASL_LOGS=-
 # set home so that any `--user` knows where to put the erlang cookie
 ENV HOME /var/lib/rabbitmq
 
+RUN adduser  -u 1000 -d $HOME -U rabbitmq
+
 RUN mkdir -p /var/lib/rabbitmq /etc/rabbitmq \
 	&& chown -R rabbitmq:rabbitmq /var/lib/rabbitmq /etc/rabbitmq \
 	&& chmod 777 /var/lib/rabbitmq /etc/rabbitmq
@@ -51,7 +53,7 @@ RUN ls -la /var/lib/rabbitmq/
 
 COPY ./docker-entrypoint.sh /usr/local/bin/
 
-USER "rabbitmq"
+USER "1000"
 # CMD "$STI_SCRIPTS_PATH/run"
 # CMD "/docker-entrypoint.sh"
 ENTRYPOINT ["docker-entrypoint.sh"]
