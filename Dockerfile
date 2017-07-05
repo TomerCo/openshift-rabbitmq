@@ -37,7 +37,11 @@ ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_
 ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
 ADD plugins/enabled_plugins /etc/rabbitmq/
 
-	
+
+RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
+RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+RUN chmod 0600 /var/lib/rabbitmq/.erlang.cookie
+
 RUN chown -R rabbitmq:rabbitmq /opt/app-root
 # && \
 	# chown -R rabbitmq:rabbitmq /var/log/rabbitmq/ && \
