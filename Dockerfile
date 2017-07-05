@@ -38,8 +38,8 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 	# chown -R rabbitmq:rabbitmq /etc/rabbitmq/ && \
 	# chown -R rabbitmq:rabbitmq /usr/sbin/rabbitmq*
 	
-ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/plugins/
-ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/plugins/
+ADD  plugins/rabbitmq_aws-*.ez /var/lib/rabbitmq/plugins/
+ADD  plugins/autocluster-*.ez /var/lib/rabbitmq/plugins/
 
 VOLUME /var/lib/rabbitmq/
 
