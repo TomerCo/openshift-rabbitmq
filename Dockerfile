@@ -8,10 +8,12 @@ RUN yum install -y wget && yum clean all
 RUN yum install -y http://packages.erlang-solutions.com/erlang-solutions-${ERLANG_SOLUTIONS_VERSION}.noarch.rpm && yum clean all
 RUN yum install -y erlang && yum clean all
 
-ENV RABBITMQ_VERSION 3.6.5
+ENV RABBITMQ_VERSION 3.6.6
 RUN yum install -y http://www.rabbitmq.com/releases/rabbitmq-server/v${RABBITMQ_VERSION}/rabbitmq-server-${RABBITMQ_VERSION}-1.noarch.rpm && yum clean all
 RUN echo "[{rabbit,[{loopback_users,[]}]}]." > /etc/rabbitmq/rabbitmq.config
 RUN rm -rf /var/lib/rabbitmq/mnesia
+
+
 EXPOSE 4369 5671 5672 25672
 
 # get logs to stdout (thanks @dumbbell for pushing this upstream! :D)
@@ -25,7 +27,7 @@ ENV RABBITMQ_LOGS=- RABBITMQ_SASL_LOGS=-
 # set home so that any `--user` knows where to put the erlang cookie
 ENV HOME /var/lib/rabbitmq
 
-RUN mkdir -p /var/lib/rabbitmq /etc/rabbitmq \
+RUN mkdir -p /var/lib/rabbitmq/plugins /etc/rabbitmq \
 	&& chown -R rabbitmq:rabbitmq /var/lib/rabbitmq /etc/rabbitmq \
 	&& chmod 777 /var/lib/rabbitmq /etc/rabbitmq
 
@@ -35,7 +37,12 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 	# chown -R rabbitmq:rabbitmq /var/lib/rabbitmq && \
 	# chown -R rabbitmq:rabbitmq /etc/rabbitmq/ && \
 	# chown -R rabbitmq:rabbitmq /usr/sbin/rabbitmq*
+	
+ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/plugins/
+ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/plugins/
+
 VOLUME /var/lib/rabbitmq/
+
 
 RUN ls -la /var/lib/rabbitmq/
 
