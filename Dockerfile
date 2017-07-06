@@ -16,7 +16,7 @@ RUN echo "[{rabbit,[{loopback_users,[]}]}]." > /etc/rabbitmq/rabbitmq.config
 RUN rm -rf /var/lib/rabbitmq/mnesia
 
 
-EXPOSE 4369 5671 5672 25672
+EXPOSE 4369 5671 5672 25672 15671 15672
 
 # get logs to stdout (thanks @dumbbell for pushing this upstream! :D)
 ENV RABBITMQ_LOGS=- RABBITMQ_SASL_LOGS=-
@@ -36,7 +36,8 @@ RUN mkdir -p /var/lib/rabbitmq /etc/rabbitmq \
 
 ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
 ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
-ADD plugins/enabled_plugins /etc/rabbitmq/
+RUN /usr/sbin/rabbitmq-plugins enable --offline autocluster
+RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
 
 RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
@@ -52,6 +53,8 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 	
 
 VOLUME /var/lib/rabbitmq/
+
+RUN echo '\nalias rabbitmqctl="RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) rabbitmqctl"' >> /etc/bashrc
 
 
 RUN ls -la /var/lib/rabbitmq/
