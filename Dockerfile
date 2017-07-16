@@ -40,9 +40,9 @@ RUN /usr/sbin/rabbitmq-plugins enable --offline autocluster
 RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
 
-RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
-RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
-RUN chmod 0600 /var/lib/rabbitmq/.erlang.cookie
+#RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
+#RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+#RUN chmod 0600 /var/lib/rabbitmq/.erlang.cookie
 
 RUN chown -R rabbitmq:rabbitmq /opt/app-root
 # && \
@@ -54,7 +54,7 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 
 VOLUME /var/lib/rabbitmq/
 
-RUN echo '\nalias rabbitmqctl="RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) rabbitmqctl"' >> /etc/bashrc
+RUN echo 'alias rabbitmqctl="RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) rabbitmqctl"' >> /etc/bashrc
 
 
 RUN ls -la /var/lib/rabbitmq/
