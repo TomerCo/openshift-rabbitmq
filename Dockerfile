@@ -56,7 +56,7 @@ VOLUME /var/lib/rabbitmq/
 
 RUN echo 'alias rabbitmqctl="RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) rabbitmqctl"' >> /etc/bashrc
 
-
+RUN if [ -e /var/lib/rabbitmq/.erlang.cookie ]; then rm -f /var/lib/rabbitmq/.erlang.cookie; fi
 RUN ls -la /var/lib/rabbitmq/
 
 COPY ./docker-entrypoint.sh /usr/local/bin/
