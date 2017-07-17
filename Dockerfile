@@ -39,7 +39,7 @@ ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_V
 RUN /usr/sbin/rabbitmq-plugins enable --offline autocluster
 RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
-RUN "mv /usr/sbin/rabbitmqctl /usr/sbin/rabbitmqctl_"
+RUN mv /usr/sbin/rabbitmqctl /usr/sbin/rabbitmqctl_
 RUN echo "RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) /usr/sbin/rabbitmqctl_ $@" > /usr/sbin/rabbitmqctl
 
 #RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
