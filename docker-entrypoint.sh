@@ -133,9 +133,8 @@ fi
 
 if [ "${RABBITMQ_ERLANG_COOKIE:-}" ]; then
 	cookieFile='/var/lib/rabbitmq/.erlang.cookie'
-		echo "$RABBITMQ_ERLANG_COOKIE" > "$cookieFile"
-		chmod 600 "$cookieFile"
-	fi
+	echo "$RABBITMQ_ERLANG_COOKIE" > "$cookieFile"
+	chmod 600 "$cookieFile"
 fi
 
 # prints "$2$1$3$1...$N"
