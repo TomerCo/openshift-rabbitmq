@@ -41,7 +41,7 @@ RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
 
 #RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
-#RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+RUN chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/
 #RUN chmod 0600 /var/lib/rabbitmq/.erlang.cookie
 
 RUN chown -R rabbitmq:rabbitmq /opt/app-root
