@@ -41,6 +41,7 @@ RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
 RUN mv /usr/sbin/rabbitmqctl /usr/sbin/rabbitmqctl_
 RUN echo "RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) /usr/sbin/rabbitmqctl_ $@" > /usr/sbin/rabbitmqctl
+RUN chmod +x /usr/sbin/rabbitmqctl
 
 #RUN hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random > /var/lib/rabbitmq/.erlang.cookie
 RUN chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/
@@ -56,7 +57,6 @@ RUN chown -R rabbitmq:rabbitmq /opt/app-root
 
 VOLUME /var/lib/rabbitmq/
 
-RUN echo 'alias rabbitmqctl="RABBITMQ_NODENAME=rabbit@$(hostname --ip-address) rabbitmqctl"' >> /etc/bashrc
 
 RUN ls -la /var/lib/rabbitmq/
 
