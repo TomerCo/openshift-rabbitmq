@@ -21,7 +21,7 @@ if [ $? -eq 70 ]; then
 		echo "ERROR - failed to set admin permissions" 
 		exit 2
 	fi	
-	set_user_tags $1 administrator
+	/usr/sbin/rabbitmqctl set_user_tags $1 administrator
 	if [ $? -ne 0 ]; then
 		echo "ERROR - failed to set administrator tag on user" 
 		exit 3
