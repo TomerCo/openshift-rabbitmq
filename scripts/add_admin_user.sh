@@ -6,6 +6,8 @@ if [ -z $2 ]; then
 	
 fi
 
+echo "Adding user $1...."
+
 /usr/sbin/rabbitmqctl list_user_permissions | grep admin &> /dev/null
 if [ $? -eq 70 ]; then
  #user does not exist
@@ -24,6 +26,8 @@ if [ $? -eq 70 ]; then
 		echo "ERROR - failed to set administrator tag on user" 
 		exit 3
 	fi	
+else
+	echo "User $1 already exists"
 fi
 
 
