@@ -8,7 +8,7 @@ fi
 
 echo "Adding user $1...."
 
-/usr/sbin/rabbitmqctl list_user_permissions | grep admin &> /dev/null
+/usr/sbin/rabbitmqctl list_user_permissions  $1 &> /dev/null
 if [ $? -eq 70 ]; then
  #user does not exist
 	/usr/sbin/rabbitmqctl $1 $2
