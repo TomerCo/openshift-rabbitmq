@@ -19,9 +19,9 @@ fi
 : "${RABBITMQ_MANAGEMENT_SSL_CERTFILE:=$RABBITMQ_SSL_CERTFILE}"
 : "${RABBITMQ_MANAGEMENT_SSL_KEYFILE:=$RABBITMQ_SSL_KEYFILE}"
 
-export AUTOCLUSTER_TYPE k8s
-export RABBITMQ_USE_LONGNAME=true
-export RABBITMQ_NODENAME=rabbit@$(hostname --ip-address)
+#export AUTOCLUSTER_TYPE k8s
+#export RABBITMQ_USE_LONGNAME=true
+#export RABBITMQ_NODENAME=rabbit@$(hostname --ip-address)
 
 
 # https://www.rabbitmq.com/configure.html
