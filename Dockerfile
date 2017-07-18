@@ -36,6 +36,9 @@ RUN mkdir -p /var/lib/rabbitmq /etc/rabbitmq \
 
 ADD  plugins/rabbitmq_aws-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
 ADD  plugins/autocluster-*.ez /usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/plugins/
+ADD scripts/add_admin_user.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/add_admin_user.sh
+
 RUN /usr/sbin/rabbitmq-plugins enable --offline autocluster
 RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_management
 
